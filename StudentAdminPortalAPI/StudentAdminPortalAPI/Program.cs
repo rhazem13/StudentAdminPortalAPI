@@ -1,7 +1,12 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Options;
 using StudentAdminPortalAPI.DataModels;
 using StudentAdminPortalAPI.Repositories;
+using StudentAdminPortalAPI.Validators;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +22,10 @@ builder.Services.AddCors((options) =>
     });
 });
 builder.Services.AddControllers();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssembly(typeof(AddStudentRequestValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(UpdateStudentRequestValidator).Assembly);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -48,5 +57,4 @@ app.UseCors("angularApplication");
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.Run();
