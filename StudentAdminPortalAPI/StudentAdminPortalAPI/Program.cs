@@ -5,6 +5,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
 using StudentAdminPortalAPI.DataModels;
 using StudentAdminPortalAPI.Repositories;
+using StudentAdminPortalAPI.Services;
 using StudentAdminPortalAPI.Validators;
 using System.Reflection;
 
@@ -32,9 +33,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<StudentAdminContext>(options=>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("StudentAdminPortalDbSQLServer")));
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
-//custom services
+//Repositories
 builder.Services.AddScoped<IStudentRepository,SqlStudentRepository>();
 builder.Services.AddScoped<IImageRepository,LocalStorageImageRepository>();
+builder.Services.AddScoped<IUserRepository,UserRepository>();
+//Services
+builder.Services.AddScoped<IUserService,UserService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
