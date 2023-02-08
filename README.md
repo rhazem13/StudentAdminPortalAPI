@@ -15,6 +15,7 @@ Web API for  a Student Admin Portal web application which is a complete end-to-e
 - FluentValidation to validate request models
 - seperation between data models and domain models
 - Verify/Confirm Email & Forgot/Reset Password
+- bearer authentication
 
 ## Contributing
 
