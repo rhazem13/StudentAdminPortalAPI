@@ -35,7 +35,7 @@ namespace StudentAdminPortalAPI.Controllers
                 PasswordSalt = passwordSalt,
                 VerificationToken = userService.CreateRandomToken()
             };
-            var result = userRepository.AddUser(user);
+            var result = await userRepository.AddUser(user);
             return Ok("User created");
         }
 
@@ -55,7 +55,8 @@ namespace StudentAdminPortalAPI.Controllers
             {
                 return BadRequest("Not verified!");
             }
-            return Ok($"welcome back {user.Email}!");
+            string token = userService.CreateToken(request);
+            return Ok(token);
         }
 
         [HttpPost("verify")]

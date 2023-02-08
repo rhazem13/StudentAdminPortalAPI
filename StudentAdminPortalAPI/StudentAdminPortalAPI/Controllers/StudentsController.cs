@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentAdminPortalAPI.DomainModels;
 using StudentAdminPortalAPI.Repositories;
+using System.Data;
 
 namespace StudentAdminPortalAPI.Controllers
 {
@@ -21,7 +23,7 @@ namespace StudentAdminPortalAPI.Controllers
             this.imageRepository = imageRepository;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllStudentsAsync()
         {
             var students = await studentRepository.GetStudentsAsync();

@@ -9,6 +9,6 @@ namespace StudentAdminPortalAPI.Services
         bool VerifyPasswordHash(string Password, byte[] passwordHash, byte[] passwordSalt);
         string CreateRandomToken();
 
-
+        string CreateToken(UserLoginRequest userLoginRequest);
     }
 }
